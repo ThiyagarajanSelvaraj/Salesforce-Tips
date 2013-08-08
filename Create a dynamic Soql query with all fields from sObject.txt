@@ -1,0 +1,20 @@
+public static String selectAllFromSobject(String sobjectAPIName, String recordIds, String fieldByFilter, String filerExpression){
+	String query = 'SELECT';
+	Map<String, Schema.SObjectField> objectFields = Schema.getGlobalDescribe().get(sobjectAPIName.toLowerCase()).getDescribe().fields.getMap();
+	 
+	// Grab the fields from the describe method and append them to the queryString one by one.
+	for(String s : objectFields.keySet()) {
+	   query += ' ' + s + ', ';
+	}
+	 
+	// Strip off the last comma if it exists.
+	if(query.subString(query.Length()-2,query.Length()) == ', ')
+	{
+		query = query.subString(0,query.Length()-2);
+	}
+	 
+	// Add FROM statement
+	query += ' FROM ' + sobjectAPIName+' WHERE '+fieldByFilter+' '+filerExpression+' '+recordIds;
+	
+	return query;
+}

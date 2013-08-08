@@ -1,0 +1,13 @@
+public static String createRecordIdString(Set<Id> recordIdsSet){
+	List<Id> recordIdsList = new List<Id>();
+	recordIdsList.addAll(recordIdsSet);
+	String recordIds = '';
+	if (!recordIdsList.isEmpty()){
+		recordIds = '(';
+		for (Integer i=0; i<recordIdsList.size(); i++){
+			recordIds += '\''+recordIdsList[i]+'\''+(i < recordIdsList.size()-1 ? ',':'');
+		}
+		recordIds += ')';
+	}
+	return recordIds;
+}
